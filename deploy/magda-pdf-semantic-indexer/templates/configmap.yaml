@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Chart.Name }}-config"
+data:
+  {{- $semanticIndexerConfig := (include "semanticIndexer.values" . | fromYaml) }}
+  {{- $minioConfig := .Values.minioConfig }}
+
+  semantic-indexer.json: {{ $semanticIndexerConfig | mustToRawJson | quote }}
+  minio.json: {{ $minioConfig | mustToRawJson | quote }}
+
