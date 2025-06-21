@@ -20,7 +20,7 @@
         "docker-build-prod": "create-docker-context-for-node-component --build --push --tag auto",
         "retag-and-push": "retag-and-push",
         "helm-lint": "helm lint deploy/magda-pdf-semantic-indexer -f deploy/test-deploy.yaml",
-        "helm-docs": "helm-docs -t ./README.md.gotmpl -o ../../README.md",
+        "helm-docs": "docker run --rm -v \"$(pwd):/helm-docs\" -u $(id -u) jnorwood/helm-docs:v1.11.0 -t ./README.md.gotmpl -o ../../README.md",
         "update-all-charts": "helm dep up ./deploy/magda-pdf-semantic-indexer",
         "add-all-chart-version-changes": "git ls-files -m | grep Chart.yaml | xargs git add && git ls-files -m | grep Chart.lock | xargs git add",
         "add-all-helm-docs-changes": "yarn helm-docs && git ls-files -m | grep -i readme.md | xargs git add",
@@ -60,5 +60,6 @@
         "hooks": {
             "pre-commit": "pretty-quick --staged"
         }
-    }
+    },
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
