@@ -15,7 +15,7 @@
         "watch": "tsc -b --watch",
         "start": "node dist/index.js",
         "dev": "nodemon --watch src --exec ts-node src/index.ts",
-        "test": "echo 'No tests at the moment' && exit 0",
+        "test": "mocha",
         "docker-build-local": "create-docker-context-for-node-component --build --push --tag auto --local",
         "docker-build-prod": "create-docker-context-for-node-component --build --push --tag auto",
         "retag-and-push": "retag-and-push",
@@ -29,10 +29,13 @@
     "devDependencies": {
         "@magda/ci-utils": "^1.0.5",
         "@magda/docker-utils": "^6.0.0-alpha.4",
-        "@opensearch-project/opensearch": "^3.5.1",
+        "@types/chai": "^5.2.2",
+        "@types/mocha": "^10.0.10",
         "@types/node": "^20.19.0",
+        "@types/yargs": "^17.0.33",
+        "chai": "^5.2.0",
         "husky": "^9.1.7",
-        "mocha": "^11.7.0",
+        "mocha": "^11.7.1",
         "pdfjs-dist": "^2.4.456",
         "prettier": "^3.5.3",
         "pretty-quick": "^4.2.2",
@@ -41,9 +44,12 @@
         "typescript": "^5.8.3"
     },
     "dependencies": {
+        "@langchain/core": "^0.3.61",
+        "@langchain/textsplitters": "^0.1.0",
         "@magda/semantic-indexer-sdk": "^6.0.0-alpha.4",
         "@opendocsg/pdf2md": "^0.2.1",
-        "urijs": "^1.19.11"
+        "urijs": "^1.19.11",
+        "yargs": "17.6.2"
     },
     "resolutions": {
         "@types/express": "4.17.9"
@@ -61,5 +67,13 @@
             "pre-commit": "pretty-quick --staged"
         }
     },
-    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+    "mocha": {
+        "loader": "ts-node/esm",
+        "extensions": [
+            "ts"
+        ],
+        "spec": [
+            "src/test/**/*.spec.ts"
+        ]
+    }
 }

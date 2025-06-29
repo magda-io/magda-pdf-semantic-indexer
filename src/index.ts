@@ -3,11 +3,15 @@ import semanticIndexer, {
     SemanticIndexerOptions,
     commonYargs,
     CreateEmbeddingText,
+    ChunkStrategyType,
 } from "@magda/semantic-indexer-sdk";
 import { existsSync, readFileSync } from "fs";
 import pdf2md from "@opendocsg/pdf2md";
+import { pdfSemanticIndexerArgs } from "./pdfSemanticIndexerArgs.js";
+import { MarkdownChunker } from "./markdownChunker.js";
 
-const args = commonYargs(6005, "http://localhost:6005");
+const port = pdfSemanticIndexerArgs.port;
+const args = commonYargs(port, `http://localhost:${port}`);
 
 export const createEmbeddingText: CreateEmbeddingText = async ({
     record,
@@ -38,14 +42,22 @@ export const createEmbeddingText: CreateEmbeddingText = async ({
     throw new Error("Unexpected format or file path");
 }
 
+const markdownChunker = new MarkdownChunker(
+    pdfSemanticIndexerArgs.chunkSizeLimit,
+    pdfSemanticIndexerArgs.overlap
+);
+
+const chunkStrategy: ChunkStrategyType = async (text: string) => {
+    return await markdownChunker.chunk(text);
+};
+
 const options: SemanticIndexerOptions = {
     argv: args,
-    id: "pdf-semantic-indexer",
+    id: pdfSemanticIndexerArgs.id,
     itemType: "storageObject",
     formatTypes: ["pdf"],
     autoDownloadFile: true,
-    chunkSizeLimit: 512,
-    overlap: 64,
+    chunkStrategy: chunkStrategy,
     createEmbeddingText: createEmbeddingText
 };
 
