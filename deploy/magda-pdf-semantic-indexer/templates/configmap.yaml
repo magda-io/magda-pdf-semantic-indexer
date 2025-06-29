@@ -3,9 +3,10 @@ kind: ConfigMap
 metadata:
   name: "{{ .Chart.Name }}-config"
 data:
-  {{- $semanticIndexerConfig := (include "semanticIndexer.values" . | fromYaml) }}
-  {{- $minioConfig := .Values.minioConfig }}
+  semantic-indexer.json: {{ (include "magda-pdf-semantic-indexer.semanticIndexer.values" .) | quote }}
 
-  semantic-indexer.json: {{ $semanticIndexerConfig | mustToRawJson | quote }}
+  {{- $minioConfig := .Values.minioConfig }}
+  {{- $finalBucket := (.Values.minioConfig.defaultDatasetBucket | default .Values.global.defaultDatasetBucket | default "magda-datasets") }}
+  {{- $_ := set $minioConfig "defaultDatasetBucket" $finalBucket }}
   minio.json: {{ $minioConfig | mustToRawJson | quote }}
 
