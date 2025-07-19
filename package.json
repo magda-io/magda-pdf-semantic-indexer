@@ -45,7 +45,7 @@
     },
     "dependencies": {
         "@langchain/core": "^0.3.61",
-        "@langchain/textsplitters": "^0.1.0",
+        "@langchain/textsplitters": "https://gitpkg.vercel.app/JHZhang2736/langchainjs/libs/langchain-textsplitters?textsplitters-build",
         "@magda/semantic-indexer-sdk": "^6.0.0-alpha.4",
         "@opendocsg/pdf2md": "^0.2.1",
         "urijs": "^1.19.11",

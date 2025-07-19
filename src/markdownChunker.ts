@@ -18,6 +18,7 @@ export class MarkdownChunker {
             chunkSize: this.chunkSize,
             chunkOverlap: this.overlap,
             keepSeparator: true,
+            stripWhitespace: false,
         });
     }
 
@@ -35,35 +36,17 @@ export class MarkdownChunker {
             }];
         }
 
-        const chunks = await this.splitter.splitText(text);
-        const results: ChunkResult[] = [];
+        const chunks = await this.splitter.splitTextWithMetadata(text);
 
-        let charPos = 0;
-        let remainingText = text;
-
-        for (let i = 0; i < chunks.length; i++) {
-            let overlapChars = 0;
-            if (i != 0) {
-                for (let j = 0; j < chunks[i].length; j++) {
-                    if (remainingText.startsWith(chunks[i].slice(j))) {
-                        overlapChars = j;
-                        break;
-                    }
-                }
+        for (let i = 1; i < chunks.length; i++) {
+            if (chunks[i].overlap === 0 && chunks[i].text.trim() === '') {
+                chunks[i-1].text = chunks[i-1].text + chunks[i].text;
+                chunks[i-1].length = chunks[i-1].length + chunks[i].length;
+                chunks.splice(i, 1);
+                i--;
             }
-            remainingText = remainingText.slice(
-                chunks[i].length - overlapChars
-            );
-
-            charPos -= overlapChars;
-            results.push({
-                text: chunks[i],
-                position: charPos,
-                length: chunks[i].length,
-                overlap: overlapChars
-            });
-            charPos += chunks[i].length;
         }
-        return results;
+
+        return chunks;
     }
 }

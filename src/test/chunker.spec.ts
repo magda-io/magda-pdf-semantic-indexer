@@ -20,7 +20,36 @@ describe("Chunker", () => {
             chunk.text.slice(chunk.overlap)
         ).join('');
         expect(reconstructed).to.equal(text);
+    });
 
+    it("should chunk markdowntext with newline characters", async () => {
+        const text =
+`
+# h1 Heading
+## h2 This is a long heading
+
+This is a long paragraph, for testing the chunker.
+
+## h3 This is a long heading
+### h4 This is a long heading
+#### h5 This is a long heading
+
+This is a long paragraph, for testing the chunker.
+`;
+        const chunker = new MarkdownChunker(10, 2);
+        const chunks = await chunker.chunk(text);
+        // console.log(chunks.map(chunk => chunk.text));
+        expect(chunks).to.not.be.empty;
+        chunks.forEach((chunk) => {
+            expect(chunk.length).to.equal(chunk.text.length);
+            expect(text.slice(chunk.position, chunk.position + chunk.length))
+                .to.equal(chunk.text);
+        });
+
+        const reconstructed = chunks.map(chunk => 
+            chunk.text.slice(chunk.overlap)
+        ).join('');
+        expect(reconstructed).to.equal(text);
     });
 
     it("should handle text smaller than chunk size", async () => {
