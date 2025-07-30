@@ -1,6 +1,6 @@
 import yargs from "yargs";
 
-export const pdfSemanticIndexerArgs = yargs()
+export const pdfSemanticIndexerArgs = yargs(process.argv.slice(2))
     .help()
     .option('id', {
         type: 'string',
