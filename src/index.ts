@@ -26,7 +26,7 @@ export const createEmbeddingText: CreateEmbeddingText = async ({
 
     const pdfBuffer = readFileSync(filePath);
     const result = await pdf2md(pdfBuffer).catch((err) => {
-      throw new Error(`Failed to convert PDF to Markdown`);
+      throw new Error(`Failed to convert PDF to Markdown: ${err}`);
     });
 
     if (!result) {
