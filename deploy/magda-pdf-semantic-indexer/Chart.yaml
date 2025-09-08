@@ -1,6 +1,6 @@
 apiVersion: v2
 name: magda-pdf-semantic-indexer
-version: 1.0.0-alpha.0
+version: 1.0.0-alpha.3
 kubeVersion: ">= 1.14.0-0"
 description: A Helm chart for Magda PDF Semantic Indexer
 home: "https://github.com/magda-io/magda-pdf-semantic-indexer"

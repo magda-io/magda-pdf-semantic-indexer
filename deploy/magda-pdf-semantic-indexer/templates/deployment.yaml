@@ -31,11 +31,14 @@ spec:
             "--chunkSizeLimit", "{{ .Values.semanticIndexer.chunkSizeLimit | default .Values.defaultSemanticIndexerConfig.chunkSizeLimit }}",
             "--overlap", "{{ .Values.semanticIndexer.overlap | default .Values.defaultSemanticIndexerConfig.overlap }}"
         ]
+        ports:
+        - containerPort: {{ .Values.port | quote }}
+          name: http
 {{- if .Values.global.enableLivenessProbes }}
         livenessProbe:
           httpGet:
             path: "/healthz"
-            port: 80
+            port: {{ .Values.port | quote }}
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 10
