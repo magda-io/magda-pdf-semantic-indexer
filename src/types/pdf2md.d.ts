@@ -3,7 +3,7 @@ import type {
     DocumentInitParameters,
     TypedArray,
     TextItem,
-} from "pdfjs-dist/types/src/display/api";
+} from "pdfjs-dist/types/src/display/api.d.ts";
 
 interface Page {
     index: number;

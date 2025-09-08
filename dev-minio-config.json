@@ -1,0 +1,7 @@
+{
+  "defaultDatasetBucket": "ai4m-p11-magda-storage-dev",
+  "endPoint": "localhost",
+  "port": 9000,
+  "region": "",
+  "useSSL": false
+}

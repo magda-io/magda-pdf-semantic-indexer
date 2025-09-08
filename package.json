@@ -14,7 +14,7 @@
         "compile": "tsc -b",
         "watch": "tsc -b --watch",
         "start": "node dist/index.js",
-        "dev": "nodemon --watch src --exec ts-node src/index.ts",
+        "dev": "nodemon --watch src -e ts,js --exec \"node --loader ts-node/esm src/index.ts --config ./dev-config.json\"",
         "test": "mocha",
         "docker-build-local": "create-docker-context-for-node-component --build --push --tag auto --local",
         "docker-build-prod": "create-docker-context-for-node-component --build --push --tag auto",
@@ -31,12 +31,13 @@
         "@magda/docker-utils": "^6.0.0-alpha.4",
         "@types/chai": "^5.2.2",
         "@types/mocha": "^10.0.10",
-        "@types/node": "^20.19.0",
+        "@types/node": "^24.3.1",
         "@types/yargs": "^17.0.33",
         "chai": "^5.2.0",
         "husky": "^9.1.7",
         "mocha": "^11.7.1",
-        "pdfjs-dist": "^2.4.456",
+        "nodemon": "^3.1.10",
+        "pdfjs-dist": "^5.4.149",
         "prettier": "^3.5.3",
         "pretty-quick": "^4.2.2",
         "rimraf": "^3.0.0",
@@ -75,5 +76,8 @@
         "spec": [
             "src/test/**/*.spec.ts"
         ]
+    },
+    "engines": {
+        "node": ">=24.0.0"
     }
 }
