@@ -32,13 +32,13 @@ spec:
             "--overlap", "{{ .Values.semanticIndexer.overlap | default .Values.defaultSemanticIndexerConfig.overlap }}"
         ]
         ports:
-        - containerPort: {{ .Values.port | quote }}
+        - containerPort: {{ int .Values.port }}
           name: http
 {{- if .Values.global.enableLivenessProbes }}
         livenessProbe:
           httpGet:
             path: "/healthz"
-            port: {{ .Values.port | quote }}
+            port: {{ .Values.port }}
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 10
@@ -80,7 +80,7 @@ spec:
               name: storage-secrets
               key: accesskey
         - name: PORT
-          value: "{{ .Values.port }}"
+          value: {{ .Values.port | quote }}
         volumeMounts:
         - name: "{{ .Chart.Name }}-config"
           mountPath: "/etc/config"
