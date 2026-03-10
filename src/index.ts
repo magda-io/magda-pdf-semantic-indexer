@@ -9,6 +9,7 @@ import pdf2md from "@opendocsg/pdf2md";
 import { existsSync, readFileSync } from "fs";
 import { pdfSemanticIndexerArgs } from "./pdfSemanticIndexerArgs.js";
 import { MarkdownChunker } from "./markdownChunker.js";
+import { installUnhandledRejectionLogger } from "./unhandledRejectionHandler.js";
 
 const port = pdfSemanticIndexerArgs.port;
 const args = commonYargs(port, `http://localhost:${port}`);
@@ -57,4 +58,5 @@ const options: SemanticIndexerOptions = {
   createEmbeddingText: createEmbeddingText,
 };
 
+installUnhandledRejectionLogger();
 semanticIndexer(options);

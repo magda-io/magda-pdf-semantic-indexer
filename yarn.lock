@@ -62,12 +62,6 @@
     zod "^3.25.32"
     zod-to-json-schema "^3.22.3"
 
-"@langchain/textsplitters@https://gitpkg.vercel.app/JHZhang2736/langchainjs/libs/langchain-textsplitters?textsplitters-build":
-  version "0.1.0"
-  resolved "https://gitpkg.vercel.app/JHZhang2736/langchainjs/libs/langchain-textsplitters?textsplitters-build#57f4702aa3fe087ec0f5a36a33bec1ad932cb107"
-  dependencies:
-    js-tiktoken "^1.0.12"
-
 "@magda/ci-utils@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@magda/ci-utils/-/ci-utils-1.0.5.tgz#29e507fdf5e71c5b62d7cdc665ce5e508ff3f31d"
