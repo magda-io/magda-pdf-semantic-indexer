@@ -71,20 +71,20 @@
     recursive-readdir "^2.2.2"
     yaml "^1.10.2"
 
-"@magda/docker-utils@^6.0.0-alpha.4":
-  version "6.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@magda/docker-utils/-/docker-utils-6.0.0-alpha.8.tgz#efcc66cb8d4529c4937c6bea408dbc6674338ee4"
-  integrity sha512-FUZm2JkWJ8e46IIOPog/KUWRNHYMU/8Q0xLHoIjdiNHEsLQFwikS/6ZbpUvyvLZSG9okXu6ToXHJpryI0mX5Ug==
+"@magda/docker-utils@^6.0.0-alpha.13":
+  version "6.0.0-alpha.13"
+  resolved "https://registry.yarnpkg.com/@magda/docker-utils/-/docker-utils-6.0.0-alpha.13.tgz#bd11ad1158750268308c29d3aacb894fc2c51687"
+  integrity sha512-W7L+GdYc6vMLDASW9NuRwIqrurib7PXZlZV6jF/gZOTn1LU3gAI8VyM3us7qMpY8wFbE26d/0ma6/1X3psD+oQ==
   dependencies:
     fs-extra "^11.2.0"
     is-subdir "^1.0.2"
     lodash "^4.17.5"
     yargs "^12.0.5"
 
-"@magda/semantic-indexer-sdk@^6.0.0-alpha.12":
-  version "6.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/@magda/semantic-indexer-sdk/-/semantic-indexer-sdk-6.0.0-alpha.12.tgz#6c343a44edf059f28f3da37ec41bc7db9b35f950"
-  integrity sha512-c0XUYQCAxRhJFtwXswoDFjsbF3FspWP1q4apYCV17vxgLbB9i5Uk23tqTYCdC5VX2WG3h0y5OIVCp/Qzp9756w==
+"@magda/semantic-indexer-sdk@^6.0.0-alpha.13":
+  version "6.0.0-alpha.13"
+  resolved "https://registry.yarnpkg.com/@magda/semantic-indexer-sdk/-/semantic-indexer-sdk-6.0.0-alpha.13.tgz#e39331dba6e6ed26cc775aeaabe2a1351cea0616"
+  integrity sha512-DX+z8An6k23LKr3xB6O73Ybe1bzzZaq0Ke0ggAnmLfWJ//eTLXh0AYcBSKcdfDOsu2+cGmIR8C+O4D77D4H9Ow==
   dependencies:
     "@opensearch-project/opensearch" "^3.5.1"
     "@types/express" "^4.17.21"
