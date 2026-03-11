@@ -46,7 +46,7 @@
     },
     "dependencies": {
         "@langchain/core": "^0.3.61",
-        "@magda/semantic-indexer-sdk": "^6.0.0-alpha.10",
+        "@magda/semantic-indexer-sdk": "^6.0.0-alpha.12",
         "@opendocsg/pdf2md": "^0.2.1",
         "urijs": "^1.19.11",
         "yargs": "17.6.2"
