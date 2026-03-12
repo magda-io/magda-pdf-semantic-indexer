@@ -37,11 +37,11 @@ spec:
 {{- if .Values.global.enableLivenessProbes }}
         livenessProbe:
           httpGet:
-            path: {{ .Values.livenessProbePath | quote }}
-            port: {{ .Values.livenessProbePort | default .Values.port }}
-          initialDelaySeconds: {{ .Values.livenessProbeInitialDelaySeconds }}
-          periodSeconds: {{ .Values.livenessProbePeriodSeconds }}
-          timeoutSeconds: {{ .Values.livenessProbeTimeoutSeconds }}
+            path: "/healthz"
+            port: {{ .Values.port }}
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
 {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}

@@ -90,13 +90,11 @@ resources:
     cpu: 500m
     memory: 512Mi
 
-# -- HTTP path for liveness checks.
-livenessProbePath: "/healthz"
-# -- Optional liveness probe port override. If empty, `port` is used.
-livenessProbePort:
-# -- Seconds after container start before probes begin.
-livenessProbeInitialDelaySeconds: 10
-# -- Seconds between liveness probes.
-livenessProbePeriodSeconds: 10
-# -- Probe timeout in seconds.
-livenessProbeTimeoutSeconds: 10
+# -- Liveness probe settings.
+livenessProbe:
+  # -- Seconds after container start before probes begin.
+  initialDelaySeconds: 10
+  # -- Seconds between liveness probes.
+  periodSeconds: 10
+  # -- Probe timeout in seconds.
+  timeoutSeconds: 10
