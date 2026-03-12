@@ -90,22 +90,13 @@ resources:
     cpu: 500m
     memory: 512Mi
 
-# -- Optional compatibility aliases for values injected under `config.*`.
-config:
-  resources:
-  livenessProbe:
-
-# -- Liveness probe settings for the indexer pod.
-livenessProbe:
-  # -- Optional explicit enable/disable override. If unset, falls back to `global.enableLivenessProbes`.
-  enabled:
-  # -- HTTP path for liveness checks.
-  path: "/healthz"
-  # -- Optional probe port override. If unset, uses `port`.
-  port:
-  # -- Seconds after container start before probes begin.
-  initialDelaySeconds: 10
-  # -- Seconds between liveness probes.
-  periodSeconds: 10
-  # -- Probe timeout in seconds.
-  timeoutSeconds: 10
+# -- HTTP path for liveness checks.
+livenessProbePath: "/healthz"
+# -- Optional liveness probe port override. If empty, `port` is used.
+livenessProbePort:
+# -- Seconds after container start before probes begin.
+livenessProbeInitialDelaySeconds: 10
+# -- Seconds between liveness probes.
+livenessProbePeriodSeconds: 10
+# -- Probe timeout in seconds.
+livenessProbeTimeoutSeconds: 10
