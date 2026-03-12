@@ -81,10 +81,20 @@ defaultImage:
 
 defaultAdminUserId: "00000000-0000-4000-8000-000000000000"
 
+# -- Container resources for the indexer pod.
 resources:
   requests:
     cpu: 100m
     memory: 200Mi
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 1000m
+    memory: 1024Mi
+
+# -- Liveness probe settings.
+livenessProbe:
+  # -- Seconds after container start before probes begin.
+  initialDelaySeconds: 10
+  # -- Seconds between liveness probes.
+  periodSeconds: 10
+  # -- Probe timeout in seconds.
+  timeoutSeconds: 60

@@ -42,6 +42,10 @@ Kubernetes: `>= 1.14.0-0`
 | global.searchEngine.semanticIndexer.knnVectorFieldConfig.m | int | `16` | The maximum number of graph edges per vector. Higher values increase memory usage but may improve search quality. |
 | global.searchEngine.semanticIndexer.knnVectorFieldConfig.mode | string | `"on_disk"` | Vector workload mode: `on_disk` or `in_memory`. |
 | image.name | string | `"magda-pdf-semantic-indexer"` |  |
+| livenessProbe | object | `{"initialDelaySeconds":10,"periodSeconds":10,"timeoutSeconds":60}` | Liveness probe settings. |
+| livenessProbe.initialDelaySeconds | int | `10` | Seconds after container start before probes begin. |
+| livenessProbe.periodSeconds | int | `10` | Seconds between liveness probes. |
+| livenessProbe.timeoutSeconds | int | `60` | Probe timeout in seconds. |
 | minioConfig.defaultDatasetBucket | string | `""` |  |
 | minioConfig.endPoint | string | `"magda-minio"` |  |
 | minioConfig.port | int | `9000` |  |
@@ -49,10 +53,7 @@ Kubernetes: `>= 1.14.0-0`
 | minioConfig.useSSL | bool | `false` |  |
 | opensearchURL | string | `"http://opensearch:9200"` |  |
 | port | int | `6305` | Service port configuration |
-| resources.limits.cpu | string | `"500m"` |  |
-| resources.limits.memory | string | `"512Mi"` |  |
-| resources.requests.cpu | string | `"100m"` |  |
-| resources.requests.memory | string | `"200Mi"` |  |
+| resources | object | `{"limits":{"cpu":"1000m","memory":"1024Mi"},"requests":{"cpu":"100m","memory":"200Mi"}}` | Container resources for the indexer pod. |
 | semanticIndexer.bulkEmbeddingsSize | int | `nil` | number of string we request embedding api to process in one request |
 | semanticIndexer.bulkIndexSize | int | `nil` | Number of documents we send to OpenSearch for bulk processing in a single request |
 | semanticIndexer.chunkSizeLimit | int | `nil` | The maximum number of tokens in a single chunk. |
