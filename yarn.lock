@@ -62,12 +62,6 @@
     zod "^3.25.32"
     zod-to-json-schema "^3.22.3"
 
-"@langchain/textsplitters@https://gitpkg.vercel.app/JHZhang2736/langchainjs/libs/langchain-textsplitters?textsplitters-build":
-  version "0.1.0"
-  resolved "https://gitpkg.vercel.app/JHZhang2736/langchainjs/libs/langchain-textsplitters?textsplitters-build#57f4702aa3fe087ec0f5a36a33bec1ad932cb107"
-  dependencies:
-    js-tiktoken "^1.0.12"
-
 "@magda/ci-utils@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@magda/ci-utils/-/ci-utils-1.0.5.tgz#29e507fdf5e71c5b62d7cdc665ce5e508ff3f31d"
@@ -77,20 +71,20 @@
     recursive-readdir "^2.2.2"
     yaml "^1.10.2"
 
-"@magda/docker-utils@^6.0.0-alpha.4":
-  version "6.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@magda/docker-utils/-/docker-utils-6.0.0-alpha.8.tgz#efcc66cb8d4529c4937c6bea408dbc6674338ee4"
-  integrity sha512-FUZm2JkWJ8e46IIOPog/KUWRNHYMU/8Q0xLHoIjdiNHEsLQFwikS/6ZbpUvyvLZSG9okXu6ToXHJpryI0mX5Ug==
+"@magda/docker-utils@^6.0.0-alpha.14":
+  version "6.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/@magda/docker-utils/-/docker-utils-6.0.0-alpha.14.tgz#80c0a3041122a0c10d7d34039da184fc16eb67d5"
+  integrity sha512-JVyxS3qIwvyahT3x1UljrkafqcqwAQdt3aQqgvdSEaEB1oSkouwG2DByrfeUrQdX5imht3E16RfASUVKovIpbw==
   dependencies:
     fs-extra "^11.2.0"
     is-subdir "^1.0.2"
     lodash "^4.17.5"
     yargs "^12.0.5"
 
-"@magda/semantic-indexer-sdk@^6.0.0-alpha.10":
-  version "6.0.0-alpha.10"
-  resolved "https://registry.yarnpkg.com/@magda/semantic-indexer-sdk/-/semantic-indexer-sdk-6.0.0-alpha.10.tgz#225ce4de2d264e154991fcf86e9cee3c094a1125"
-  integrity sha512-Lq9EeLySPq4odv75Z8R1RAmuCUwdhWdqDOi8hviKrnTLtTbezrcBKW1WBNFhXN9xQf2K5MnsJgVmiIdbF9M+pg==
+"@magda/semantic-indexer-sdk@^6.0.0-alpha.14":
+  version "6.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/@magda/semantic-indexer-sdk/-/semantic-indexer-sdk-6.0.0-alpha.14.tgz#09f5c4cc7df0096fbb0975a7f063515b6cb220b5"
+  integrity sha512-IBqXTLZkIGEaHre8Ya8rwMyOhQn/Oetl7dKDGvXUT9iQeRcR4nK1Q0EapHM9nUP8HjU1DgF0gYebl84xObf5cQ==
   dependencies:
     "@opensearch-project/opensearch" "^3.5.1"
     "@types/express" "^4.17.21"

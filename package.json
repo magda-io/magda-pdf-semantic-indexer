@@ -28,7 +28,7 @@
     },
     "devDependencies": {
         "@magda/ci-utils": "^1.0.5",
-        "@magda/docker-utils": "^6.0.0-alpha.4",
+        "@magda/docker-utils": "^6.0.0-alpha.14",
         "@types/chai": "^5.2.2",
         "@types/mocha": "^10.0.10",
         "@types/node": "^24.3.1",
@@ -46,8 +46,7 @@
     },
     "dependencies": {
         "@langchain/core": "^0.3.61",
-        "@langchain/textsplitters": "https://gitpkg.vercel.app/JHZhang2736/langchainjs/libs/langchain-textsplitters?textsplitters-build",
-        "@magda/semantic-indexer-sdk": "^6.0.0-alpha.10",
+        "@magda/semantic-indexer-sdk": "^6.0.0-alpha.14",
         "@opendocsg/pdf2md": "^0.2.1",
         "urijs": "^1.19.11",
         "yargs": "17.6.2"
