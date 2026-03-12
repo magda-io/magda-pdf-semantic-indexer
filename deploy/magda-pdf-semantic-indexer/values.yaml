@@ -81,6 +81,7 @@ defaultImage:
 
 defaultAdminUserId: "00000000-0000-4000-8000-000000000000"
 
+# -- Container resources for the indexer pod.
 resources:
   requests:
     cpu: 100m
@@ -88,3 +89,23 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+# -- Optional compatibility aliases for values injected under `config.*`.
+config:
+  resources:
+  livenessProbe:
+
+# -- Liveness probe settings for the indexer pod.
+livenessProbe:
+  # -- Optional explicit enable/disable override. If unset, falls back to `global.enableLivenessProbes`.
+  enabled:
+  # -- HTTP path for liveness checks.
+  path: "/healthz"
+  # -- Optional probe port override. If unset, uses `port`.
+  port:
+  # -- Seconds after container start before probes begin.
+  initialDelaySeconds: 10
+  # -- Seconds between liveness probes.
+  periodSeconds: 10
+  # -- Probe timeout in seconds.
+  timeoutSeconds: 10

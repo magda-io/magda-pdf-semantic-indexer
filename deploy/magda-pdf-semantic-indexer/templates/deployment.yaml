@@ -15,6 +15,55 @@ spec:
       labels:
         service: magda-pdf-semantic-indexer
     spec:
+      {{- $config := .Values.config | default dict }}
+      {{- $resources := .Values.resources }}
+      {{- if and (hasKey $config "resources") (ne (get $config "resources") nil) }}
+      {{- $resources = (get $config "resources") }}
+      {{- end }}
+      {{- $livenessProbe := .Values.livenessProbe | default dict }}
+      {{- $configLivenessProbe := (get $config "livenessProbe") | default dict }}
+      {{- $livenessProbeEnabled := .Values.global.enableLivenessProbes | default false }}
+      {{- if and (hasKey $livenessProbe "enabled") (ne (get $livenessProbe "enabled") nil) }}
+      {{- $livenessProbeEnabled = (get $livenessProbe "enabled") }}
+      {{- end }}
+      {{- if and (hasKey $configLivenessProbe "enabled") (ne (get $configLivenessProbe "enabled") nil) }}
+      {{- $livenessProbeEnabled = (get $configLivenessProbe "enabled") }}
+      {{- end }}
+      {{- $livenessProbePath := "/healthz" }}
+      {{- if and (hasKey $livenessProbe "path") (ne (get $livenessProbe "path") nil) }}
+      {{- $livenessProbePath = (get $livenessProbe "path") }}
+      {{- end }}
+      {{- if and (hasKey $configLivenessProbe "path") (ne (get $configLivenessProbe "path") nil) }}
+      {{- $livenessProbePath = (get $configLivenessProbe "path") }}
+      {{- end }}
+      {{- $livenessProbePort := .Values.port }}
+      {{- if and (hasKey $livenessProbe "port") (ne (get $livenessProbe "port") nil) }}
+      {{- $livenessProbePort = (get $livenessProbe "port") }}
+      {{- end }}
+      {{- if and (hasKey $configLivenessProbe "port") (ne (get $configLivenessProbe "port") nil) }}
+      {{- $livenessProbePort = (get $configLivenessProbe "port") }}
+      {{- end }}
+      {{- $livenessProbeInitialDelaySeconds := 10 }}
+      {{- if and (hasKey $livenessProbe "initialDelaySeconds") (ne (get $livenessProbe "initialDelaySeconds") nil) }}
+      {{- $livenessProbeInitialDelaySeconds = (get $livenessProbe "initialDelaySeconds") }}
+      {{- end }}
+      {{- if and (hasKey $configLivenessProbe "initialDelaySeconds") (ne (get $configLivenessProbe "initialDelaySeconds") nil) }}
+      {{- $livenessProbeInitialDelaySeconds = (get $configLivenessProbe "initialDelaySeconds") }}
+      {{- end }}
+      {{- $livenessProbePeriodSeconds := 10 }}
+      {{- if and (hasKey $livenessProbe "periodSeconds") (ne (get $livenessProbe "periodSeconds") nil) }}
+      {{- $livenessProbePeriodSeconds = (get $livenessProbe "periodSeconds") }}
+      {{- end }}
+      {{- if and (hasKey $configLivenessProbe "periodSeconds") (ne (get $configLivenessProbe "periodSeconds") nil) }}
+      {{- $livenessProbePeriodSeconds = (get $configLivenessProbe "periodSeconds") }}
+      {{- end }}
+      {{- $livenessProbeTimeoutSeconds := 10 }}
+      {{- if and (hasKey $livenessProbe "timeoutSeconds") (ne (get $livenessProbe "timeoutSeconds") nil) }}
+      {{- $livenessProbeTimeoutSeconds = (get $livenessProbe "timeoutSeconds") }}
+      {{- end }}
+      {{- if and (hasKey $configLivenessProbe "timeoutSeconds") (ne (get $configLivenessProbe "timeoutSeconds") nil) }}
+      {{- $livenessProbeTimeoutSeconds = (get $configLivenessProbe "timeoutSeconds") }}
+      {{- end }}
       {{- include "magda.imagePullSecrets" . | indent 6 }}
       containers:
       - name: magda-pdf-semantic-indexer
@@ -34,17 +83,17 @@ spec:
         ports:
         - containerPort: {{ int .Values.port }}
           name: http
-{{- if .Values.global.enableLivenessProbes }}
+{{- if $livenessProbeEnabled }}
         livenessProbe:
           httpGet:
-            path: "/healthz"
-            port: {{ .Values.port }}
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 10
+            path: {{ $livenessProbePath | quote }}
+            port: {{ $livenessProbePort }}
+          initialDelaySeconds: {{ $livenessProbeInitialDelaySeconds }}
+          periodSeconds: {{ $livenessProbePeriodSeconds }}
+          timeoutSeconds: {{ $livenessProbeTimeoutSeconds }}
 {{- end }}
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml $resources | indent 10 }}
         env:
         - name: NODE_PORT
           value: {{ .Values.port | quote }}
