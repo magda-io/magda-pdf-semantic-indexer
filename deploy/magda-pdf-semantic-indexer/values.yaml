@@ -87,8 +87,8 @@ resources:
     cpu: 100m
     memory: 200Mi
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 1000m
+    memory: 1024Mi
 
 # -- Liveness probe settings.
 livenessProbe:
@@ -97,4 +97,4 @@ livenessProbe:
   # -- Seconds between liveness probes.
   periodSeconds: 10
   # -- Probe timeout in seconds.
-  timeoutSeconds: 10
+  timeoutSeconds: 60
