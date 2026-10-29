@@ -1,7 +1,10 @@
 import { expect } from "chai";
 import { EventEmitter } from "events";
 import { PassThrough } from "stream";
-import { makeCreateEmbeddingText } from "../createEmbeddingText.js";
+import {
+  makeCreateEmbeddingText,
+  readProcessRssBytes,
+} from "../createEmbeddingText.js";
 
 type FakeWorkerProcess = EventEmitter & {
   stdout: PassThrough;
@@ -117,6 +120,80 @@ describe("createEmbeddingText", () => {
       "Failed to convert PDF to Markdown: pdf2md worker timed out after 10ms"
     );
     expect(worker.killCalls).to.deep.equal(["SIGKILL"]);
+  });
+
+  it("should kill worker and fail conversion when it exceeds the memory limit", async () => {
+    const worker = createFakeWorkerProcess();
+    (worker as any).pid = 1234;
+    const rssChecks: number[] = [];
+    const spawn = () => worker as any;
+
+    const createEmbeddingText = makeCreateEmbeddingText({
+      spawn: spawn as any,
+      existsSync: () => true,
+      timeoutMs: 1000,
+      memoryLimitBytes: 100 * 1024 * 1024,
+      memoryCheckIntervalMs: 5,
+      getProcessRss: async (pid) => {
+        rssChecks.push(pid);
+        return rssChecks.length < 3 ? 50 * 1024 * 1024 : 200 * 1024 * 1024;
+      },
+    });
+
+    await expectThrowsMessage(
+      createEmbeddingText({
+        record: {} as any,
+        format: "PDF",
+        filePath: "/tmp/test.pdf",
+        url: "http://example.com/test.pdf",
+        readonlyRegistry: {} as any,
+      }),
+      "Failed to convert PDF to Markdown: pdf2md worker exceeded memory limit of 100 MiB (RSS 200 MiB)"
+    );
+    expect(rssChecks).to.deep.equal([1234, 1234, 1234]);
+    expect(worker.killCalls).to.deep.equal(["SIGKILL"]);
+  });
+
+  it("should not check memory when the limit is 0", async () => {
+    const worker = createFakeWorkerProcess();
+    (worker as any).pid = 1234;
+    let rssChecks = 0;
+    const spawn = () => {
+      setTimeout(() => {
+        worker.stdout.write("converted markdown");
+        worker.emit("close", 0);
+      }, 30);
+      return worker as any;
+    };
+
+    const createEmbeddingText = makeCreateEmbeddingText({
+      spawn: spawn as any,
+      existsSync: () => true,
+      timeoutMs: 1000,
+      memoryLimitBytes: 0,
+      memoryCheckIntervalMs: 5,
+      getProcessRss: async () => {
+        rssChecks += 1;
+        return 200 * 1024 * 1024;
+      },
+    });
+
+    const result = await createEmbeddingText({
+      record: {} as any,
+      format: "PDF",
+      filePath: "/tmp/test.pdf",
+      url: "http://example.com/test.pdf",
+      readonlyRegistry: {} as any,
+    });
+
+    expect(result.text).to.equal("converted markdown");
+    expect(rssChecks).to.equal(0);
+  });
+
+  it("should read the RSS of a running process", async () => {
+    const rss = await readProcessRssBytes(process.pid);
+    expect(rss).to.be.a("number");
+    expect(rss).to.be.above(1024 * 1024);
   });
 
   it("should fail when file does not exist", async () => {

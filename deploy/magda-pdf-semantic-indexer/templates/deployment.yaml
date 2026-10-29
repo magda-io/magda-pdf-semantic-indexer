@@ -29,7 +29,8 @@ spec:
             "--embeddingApiURL", "{{ .Values.embeddingApiURL }}",
             "--id", "{{ .Values.semanticIndexer.id | default .Values.defaultSemanticIndexerConfig.id }}",
             "--chunkSizeLimit", "{{ .Values.semanticIndexer.chunkSizeLimit | default .Values.defaultSemanticIndexerConfig.chunkSizeLimit }}",
-            "--overlap", "{{ .Values.semanticIndexer.overlap | default .Values.defaultSemanticIndexerConfig.overlap }}"
+            "--overlap", "{{ .Values.semanticIndexer.overlap | default .Values.defaultSemanticIndexerConfig.overlap }}",
+            "--pdfWorkerMemoryLimitMiB", "{{ int .Values.pdfWorkerMemoryLimitMiB }}"
         ]
         ports:
         - containerPort: {{ int .Values.port }}

@@ -1,5 +1,6 @@
 import pdf2md from "@opendocsg/pdf2md";
 import { existsSync, readFileSync } from "fs";
+import { disablePdfImageDecoding } from "./disablePdfImageDecoding.js";
 
 function fail(message: string, err?: unknown): never {
   if (err instanceof Error) {
@@ -31,13 +32,20 @@ if (!existsSync(filePath)) {
 }
 
 try {
+  await disablePdfImageDecoding();
   const pdfBuffer = readFileSync(filePath);
   const markdown = await pdf2md(pdfBuffer);
   if (!markdown) {
     fail("pdf2md worker produced empty output");
   }
-  process.stdout.write(markdown);
-  process.exit(0);
+  // Writes to a pipe can be asynchronous, so exit only once the output has
+  // been flushed. Otherwise it's cut off at the pipe buffer size.
+  process.stdout.write(markdown, (err) => {
+    if (err) {
+      fail("pdf2md worker failed to write output", err);
+    }
+    process.exit(0);
+  });
 } catch (err) {
   fail("pdf2md worker failed conversion", err);
 }
