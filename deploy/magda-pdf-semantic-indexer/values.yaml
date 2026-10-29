@@ -81,6 +81,11 @@ defaultImage:
 
 defaultAdminUserId: "00000000-0000-4000-8000-000000000000"
 
+# -- (int) Memory limit (RSS, in MiB) of the worker process that converts each PDF to Markdown.
+# A PDF whose conversion needs more is skipped (and logged) instead of getting the whole container OOM-killed.
+# Keep it below `resources.limits.memory`, leaving room for the main process. Set to 0 to disable the limit.
+pdfWorkerMemoryLimitMiB: 512
+
 # -- Container resources for the indexer pod.
 resources:
   requests:

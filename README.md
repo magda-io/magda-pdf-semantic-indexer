@@ -52,6 +52,7 @@ Kubernetes: `>= 1.14.0-0`
 | minioConfig.region | string | `""` |  |
 | minioConfig.useSSL | bool | `false` |  |
 | opensearchURL | string | `"http://opensearch:9200"` |  |
+| pdfWorkerMemoryLimitMiB | int | `512` | Memory limit (RSS, in MiB) of the worker process that converts each PDF to Markdown. A PDF whose conversion needs more is skipped (and logged) instead of getting the whole container OOM-killed. Keep it below `resources.limits.memory`, leaving room for the main process. Set to 0 to disable the limit. |
 | port | int | `6305` | Service port configuration |
 | resources | object | `{"limits":{"cpu":"1000m","memory":"1024Mi"},"requests":{"cpu":"100m","memory":"200Mi"}}` | Container resources for the indexer pod. |
 | semanticIndexer.bulkEmbeddingsSize | int | `nil` | number of string we request embedding api to process in one request |
